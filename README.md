@@ -1,4 +1,3 @@
-# nodemjs
-Node configured from the ground up using ES modules
+# http-fetch
 
-includes the boilerplate for a simple express server to quickly spin up a webserver.
+Some functions to help mapping requests and responses between the node http module and the fetch module.
