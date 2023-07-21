@@ -5,7 +5,7 @@ import{fileFetch,fileMap} from './modules/remote-files.mjs';
 
 let hostTarget = 'www.google.com';
 let hostList = [];
-hostList.push('www.google.com');
+
 
 export async function serverRequestResponse(reqDTO){
   
@@ -13,6 +13,7 @@ export async function serverRequestResponse(reqDTO){
   resDTO.headers={};
   let hostProxy = reqDTO.host;
   hostTarget=hostProxy.replace('-router-servleteer.vercel.app','').replaceAll('-','.');
+  hostList.push(hostTarget);
   let path = reqDTO.shortURL.replaceAll('*', '');
   let pat = path.split('?')[0].split('#')[0];
 
