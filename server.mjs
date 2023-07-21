@@ -12,6 +12,7 @@ export async function serverRequestResponse(reqDTO){
   let resDTO={};
   resDTO.headers={};
   let hostProxy = reqDTO.host;
+  hostTarget=hostProxy.replace('router-servleteer.vercel.app','').replaceAll('-','.');
   let path = reqDTO.shortURL.replaceAll('*', '');
   let pat = path.split('?')[0].split('#')[0];
 
@@ -60,7 +61,7 @@ if(ct.includes('html')||ct.includes('xml')||pat.endsWith('.html')||pat.endsWith(
       resBody = resBody.replace('<head>',
         `<head modified><script src=https://`+ hostProxy + `/link-resolver.js host-list=` + btoa(JSON.stringify(hostList)) + `></script>`);
     }
-      
+      resDTO['Content-Length']=new Blob([resBody]).size;
       resDTO.body = resBody;
       return resDTO;
 
@@ -68,6 +69,7 @@ if(ct.includes('html')||ct.includes('xml')||pat.endsWith('.html')||pat.endsWith(
     } else {
       
       let resBody = Buffer.from(await response.arrayBuffer());
+      resDTO['Content-Length']=resBody.length;
       resDTO.body = resBody;
       return resDTO;
 
