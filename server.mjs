@@ -12,7 +12,7 @@ export async function serverRequestResponse(reqDTO){
   let resDTO={};
   resDTO.headers={};
   let hostProxy = reqDTO.host;
-  hostTarget=hostProxy.replace('router-servleteer.vercel.app','').replaceAll('-','.');
+  hostTarget=hostProxy.replace('-router-servleteer.vercel.app','').replaceAll('-','.');
   let path = reqDTO.shortURL.replaceAll('*', '');
   let pat = path.split('?')[0].split('#')[0];
 
