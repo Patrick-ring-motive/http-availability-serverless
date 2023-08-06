@@ -59,8 +59,18 @@ export async function serverRequestResponse(reqDTO){
       /* Copy over target response and return */
       let resBody = await response.text();
 if(ct.includes('html')||ct.includes('xml')||pat.endsWith('.html')||pat.endsWith('.xhtml')){
+      let sty='';
+      if(hostTarget=='www.amazon.com'){
+        
+        sty='<style>html{filter: invert(1) hue-rotate(180deg);}</style>';
+        
+        }
+      
+      
       resBody = resBody.replace('<head>',
-        `<head modified><script src=https://`+ hostProxy + `/link-resolver.js host-list=` + btoa(JSON.stringify(hostList)) + `></script>`);
+        `<head modified>
+        `+sty+`
+        <script src=https://`+ hostProxy + `/link-resolver.js host-list=` + btoa(JSON.stringify(hostList)) + `></script>`);
     }
       resDTO['Content-Length']=new Blob([resBody]).size;
       resDTO.body = resBody;
